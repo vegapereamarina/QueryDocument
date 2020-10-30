@@ -2,9 +2,9 @@
 
 db.inventory.insertMany([
     { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
-    { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+    { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "B" },
     { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
-    { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+    { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "C" },
     { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
  ]);
 
@@ -13,14 +13,14 @@ db.inventory.insertMany([
  db.inventory.find( {} );
 
 
- //El siguiente ejemplo selecciona de la colección de inventario todos los documentos donde el estado es igual a "D":
+ //El siguiente ejemplo selecciona de la colección de inventario todos los documentos donde el estado es igual a "A":
 
- db.inventory.find( { status: "D" } );
+ db.inventory.find( { status: "A" } );
 
 
- //El siguiente ejemplo recupera todos los documentos de la colección de inventario donde el estado es igual a "A" o "D":
+ //El siguiente ejemplo recupera todos los documentos de la colección de inventario donde el estado es igual a "B" o "C":
 
- db.inventory.find( { status: { $in: [ "A", "D" ] } } );
+ db.inventory.find( { status: { $in: [ "B", "C" ] } } );
 
 
 
@@ -63,21 +63,21 @@ db.inventory.insertMany([
 
 
  /*Consultas AND con varias expresiones que especifican el mismo campo:*/
- /*Significado del valor $and en el ejemplo: El valor del campo "price" no es igual a 1,99 y "price" existe*/
+ /*Significado del valor $and en el ejemplo: El valor del campo "price" no es igual a 20 y "price" existe*/
 
- db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } );
+ db.inventory.find( { $and: [ { price: { $ne: 20 } }, { price: { $exists: true } } ] } );
  
  /*También puede ser construido por un AND implícito, combinando las expresiones del operador para el campo de price.*/
 
- db.inventory.find( { price: { $ne: 1.99, $exists: true } } );
+ db.inventory.find( { price: { $ne: 20, $exists: true } } );
 
 
 
 
  /*Consultas NOT con varias expresiones que especifican el campo*/
- /*Significado del valor $not en el ejemplo: el valor del campo "price" es menor o igual a 1,99 or, el campo "price" no existe */
+ /*Significado del valor $not en el ejemplo: el valor del campo "price" es menor o igual a 20 or, el campo "price" no existe */
 
- db.inventory.find( { price: { $not: { $gt: 1.99 } } } )
+ db.inventory.find( { price: { $not: { $gt: 20 } } } )
 
  /*La siguiente consulta selecciona todos los documentos de la colección de inventario donde el valor del campo del artículo 
  no comienza con la letra p*/
